@@ -1,6 +1,13 @@
 // @file: src/ROUTES/tarefa.routes.js
 
-import { atualizarTarefa, concluirTarefa, criarTarefa, listarTarefas, obterResumo, obterTarefa, removerTarefa } from '../controllers/tarefa.controller.js'
+import { atualizarTarefa, 
+          concluirTarefa,
+          criarTarefa,
+          listarTarefas,
+          obterResumo, 
+          obterTarefa, 
+          removerTarefa, 
+          listarTarefasPendentes } from '../controllers/tarefa.controller.js'
 
 export default async function tarefaRoutes(server, options) {
 
@@ -48,4 +55,7 @@ export default async function tarefaRoutes(server, options) {
 
     removerTarefa(request, reply)
   })
+
+  server.get('/tarefas/pendentes', listarTarefasPendentes)
 }
+

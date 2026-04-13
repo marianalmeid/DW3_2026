@@ -1,0 +1,23 @@
+1. Verificar se a descrição da tarefa não está vazia ao criar uma nova tarefa.
+    Camada: Controller
+    Justificativa: Porque é uma validação de entrada de dados da requisição. O controller recebe o `request.body`, então é o lugar ideal para validar antes de enviar ao model.
+
+2. Verificar se o ID da tarefa existe antes de tentar atualizar ou remover uma tarefa.
+    Camada: Model
+    Justificativa: Porque envolve acesso aos dados (array de tarefas). O model é responsável por saber se o ID existe ou não.
+
+3. Verificar se os parâmetros de consulta (query) são válidos ao listar as tarefas (por exemplo, se o valor de concluido é true ou false).
+    Camada: Controller
+    Justificativa: Porque os parâmetros vêm da requisição (`request.query`). O controller deve validar se os dados recebidos estão corretos antes de passar para o model.
+
+4. Converter o parâmetro id vindo da URL (que chega como string) para um número (Number) antes de buscar os dados.
+    Camada: Controller
+    Justificativa: Porque é uma adaptação de dados da requisição, então o controller deve preparar os dados no formato correto antes de enviá-los ao model.
+
+5. Impedir a remoção de uma tarefa que já esteja marcada como "concluída".
+    Camada: Model
+    Justificativa: Porque é uma regra de negócio, o model é responsável por garantir a integridade dos dados e aplicar regras do sistema.
+    
+6. Verificar se o usuário já atingiu o limite máximo de 10 tarefas pendentes antes de permitir a criação de uma nova.
+    Camada: Model
+    Justificativa: Porque também é uma regra de negócio e depende dos dados existentes (quantidade de tarefas pendentes), ou seja, o model deve controlar isso.
