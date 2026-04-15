@@ -1,27 +1,18 @@
-import {
-    listarTarefasModel,
-    criarTarefaModel,
-    obterResumoModel,
-    obterTarefaModel,
-    atualizarTarefaModel,
-    concluirTarefaModel,
-    removerTarefaModel, 
-    listarTarefasPendentesModel
-} from '../models/tarefa.model.js'
+import model from '../models/tarefa.model.js'
 
 // LISTAR
-export async function listarTarefas(request, reply) {
+export async function listar(request, reply) {
     console.log("Controller: listarTarefas chamado")
 
     const { busca, concluido } = request.query
 
-    const resultado = await listarTarefasModel(busca, concluido)
+    const resultado = await model.listar({busca, concluido})
 
     return reply.send(resultado)
 }
 
 // CRIAR
-export async function criarTarefa(request, reply) {
+export async function criar(request, reply) {
     const { descricao } = request.body
 
     if (!descricao || descricao.trim() === '') {
@@ -31,14 +22,14 @@ export async function criarTarefa(request, reply) {
         })
     }
 
-    const novaTarefa = await criarTarefaModel(descricao)
+    const novaTarefa = await model.criar({descricao})
 
     return reply.status(201).send(novaTarefa)
 }
 
 // RESUMO
 export async function obterResumo(request, reply) {
-    const resumo = await obterResumoModel()
+    const resumo = await model.obterResumo({})
     return reply.send(resumo)
 }
 
@@ -46,7 +37,7 @@ export async function obterResumo(request, reply) {
 export async function obterTarefa(request, reply) {
     const id = Number(request.params.id)
 
-    const tarefa = await obterTarefaModel(id)
+    const tarefa = await model.obterTarefaModel(id)
 
     if (!tarefa) {
         return reply.status(404).send({
@@ -62,7 +53,7 @@ export async function obterTarefa(request, reply) {
 export async function atualizarTarefa(request, reply) {
     const id = Number(request.params.id)
 
-    const tarefa = await atualizarTarefaModel(id, request.body)
+    const tarefa = await model.atualizarTarefaModel(id, request.body)
 
     if (!tarefa) {
         return reply.status(404).send({
@@ -78,7 +69,7 @@ export async function atualizarTarefa(request, reply) {
 export async function concluirTarefa(request, reply) {
     const id = Number(request.params.id)
 
-    const tarefa = await concluirTarefaModel(id)
+    const tarefa = await model.concluirTarefaModel(id)
 
     if (!tarefa) {
         return reply.status(404).send({
@@ -94,7 +85,7 @@ export async function concluirTarefa(request, reply) {
 export async function removerTarefa(request, reply) {
     const id = Number(request.params.id)
 
-    const removido = await removerTarefaModel(id)
+    const removido = await model.removerTarefaModel(id)
 
     if (!removido) {
         return reply.status(404).send({
@@ -109,7 +100,7 @@ export async function removerTarefa(request, reply) {
 export async function listarTarefasPendentes(request, reply) {
     console.log("Controller: listarTarefasPendentes chamado")
 
-    const tarefasPendentes = await listarTarefasPendentesModel()
+    const tarefasPendentes = await model.listarTarefasPendentesModel()
 
     return reply.send(tarefasPendentes)
 }
