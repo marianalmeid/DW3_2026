@@ -71,6 +71,11 @@ class TarefaModel {
     const pendentes = total - concluidas
     return { total, concluidas, pendentes }
   }
+
+  async listarPendentes() {
+    console.log("model: listarPendentes chamado")
+    return this.tarefas.filter(tarefa => tarefa.concluido === false)
+  }
 }
 
 export default new TarefaModel()
