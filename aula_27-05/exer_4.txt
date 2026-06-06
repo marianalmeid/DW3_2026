@@ -1,0 +1,2 @@
+Guardar tarefas em um array armazena os dados apenas na memória da aplicação, que são perdidos ao reiniciar o servidor. Já no PostgreSQL, os dados ficam persistidos e continuam disponíveis após reinicializações.
+O banco de dados é responsável por armazenar e recuperar as informações de forma permanente. Embora o uso do PostgreSQL torne a aplicação um pouco mais complexa, ele é essencial para sistemas que precisam manter os dados salvos.
