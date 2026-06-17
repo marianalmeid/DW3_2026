@@ -1,36 +1,23 @@
+import 'dotenv/config'
 import Fastify from 'fastify'
-import cors from '@fastify/cors'
-import tarefaRoutes from './features/tarefas/tarefa.routes.js'
-import client from './database/client.js'
 
-const server = Fastify()
+import tarefaRoutes from './features/tarefa.routes.js'
+import pool from './database/pool.js'
 
-server.register(cors, {
-  origin: '*',
-  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS']
-})
+const server = Fastify({ logger: true })
 
-server.register(tarefaRoutes, { prefix: '/tarefas' })
-
-server.setNotFoundHandler((request, reply) => {
-  reply.code(404).send({
-    status: 'error',
-    message: 'O recurso solicitado não existe nesta API.'
-  })
-})
-
-const PORT = 3000
+server.register(tarefaRoutes)
 
 const start = async () => {
   try {
-    // Antes de aceitar requisições, a aplicação tenta falar com o banco
-    await client.connect()
+    await pool.query('SELECT 1')
     console.log('Conectado ao PostgreSQL com sucesso')
 
-    await server.listen({ port: PORT })
-    console.log(`Servidor rodando em <http://localhost>:${PORT}`)
-  } catch (erro) {
-    console.error('Falha ao iniciar a aplicação:', erro)
+    await server.listen({ port: 3000 })
+
+    console.log('Servidor rodando')
+  } catch (err) {
+    console.error('Falha ao iniciar a aplicação:', err)
     process.exit(1)
   }
 }
