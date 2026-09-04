@@ -1,0 +1,3 @@
+No SQL puro, a gente escreve diretamente o comando que será executado no banco. Acho que uma vantagem é ter mais controle sobre a consulta e saber exatamente o que está sendo feito. Porém, é necessário conhecer SQL.
+Já com o Drizzle, podemos fazer a consulta usando JavaScript e as tabelas que foram definidas no schema. Isso deixa o código mais integrado com o restante da aplicação e pode facilitar na hora de trabalhar com o banco.
+Na minha opinião, o SQL puro é melhor quando precisamos ter mais controle sobre a consulta, enquanto o Drizzle facilita o desenvolvimento por deixar o código mais próximo do JavaScript.
