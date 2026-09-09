@@ -1,0 +1,2 @@
+Não. Remover ".unique()" de tags.nome apenas no schema.js não remove a restrição do PostgreSQL. O schema.js apenas representa a estrutura do banco no código, mas não altera automaticamente as tabelas já existentes. A leitura com SELECT também não seria suficiente para descobrir essa diferença, pois a consulta continuaria funcionando normalmente.
+Para identificar a divergência, seria necessário comparar a estrutura e as restrições existentes no banco com o que está definido no schema.js, verificando se a coluna nome continua tendo a regra UNIQUE no PostgreSQL.

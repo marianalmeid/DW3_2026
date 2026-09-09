@@ -1,0 +1,48 @@
+Tabela "tarefas_tags"
+
+CREATE TABLE tarefas_tags (
+  tarefa_id INTEGER NOT NULL,
+  tag_id INTEGER NOT NULL,
+
+  PRIMARY KEY (tarefa_id, tag_id),
+
+  FOREIGN KEY (tarefa_id)
+    REFERENCES tarefas(id),
+
+  FOREIGN KEY (tag_id)
+    REFERENCES tags(id)
+);
+
+------------------------------------------------------
+
+Representação no Drizzle:
+
+    export const tarefasTags = pgTable('tarefas_tags', {
+        tarefaId: integer('tarefa_id')
+            .notNull()
+            .references(() => tarefas.id),
+
+        tagId: integer('tag_id')
+            .notNull()
+            .references(() => tags.id),
+
+        }, (table) => [
+        primaryKey({
+            columns: [table.tarefaId, table.tagId],
+        }),
+        ])
+
+------------------------------------------------------------
+
+As duas formas representam a mesma estrutura. A coluna tarefa_id no SQL corresponde a tarefaId no Drizzle, e tag_id corresponde a tagId. As duas colunas são obrigatórias e possuem chaves estrangeiras que apontam para as tabelas tarefas e tags. A chave primária é formada pelas duas colunas juntas. Isso permite, por exemplo, que uma tarefa tenha várias tags e que uma tag seja usada em várias tarefas, mas impede que a mesma combinação seja repetida.
+
+---------------------------------------------------------------------
+
+Resultado:
+    Associações entre tarefas e tags:
+        ┌─────────┐
+        │ (index) │
+        ├─────────┤
+        └─────────┘
+
+    A leitura foi executada sem erro, mostrando que o Drizzle conseguiu acessar a tabela tarefas_tags. Como ainda não existem associações cadastradas, o resultado está vazio. Isso não significa que a tabela está errada, apenas que ela ainda não possui registros. Comprova que a tabela pode ser acessada e consultada pelo script, mas não comprova sozinha que todas as regras estão corretas. Para isso, também é necessário comparar a estrutura do banco com a definição feita no schema.js.

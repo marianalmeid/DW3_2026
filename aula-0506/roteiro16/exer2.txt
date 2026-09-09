@@ -1,0 +1,5 @@
+A representação está incompleta porque a tabela projetos também possui a coluna criado_em, além de id e nome. Essa coluna é do tipo TIMESTAMP, não pode ser nula e possui como valor padrão a data e hora atual.
+O script conseguir listar os projetos não significa que o schema está completo. Um SELECT pode funcionar mesmo que alguma coluna ou regra da tabela não esteja representada no schema.js. Por isso, também é necessário comparar o schema com a estrutura real do banco.
+
+A linha que falta, no caso, seria: 
+    'criadoEm: timestamp('criado_em').notNull().defaultNow(),'

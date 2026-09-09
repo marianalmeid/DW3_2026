@@ -1,0 +1,5 @@
+1- Os pares (2, 1), (2, 3) e (4, 1) podem existir ao mesmo tempo porque, mesmo que alguns números se repitam individualmente, os pares completos são diferentes.
+
+2 - Outra ocorrência de (2, 1) seria rejeitada porque tarefa_id e tag_id juntos formam uma chave primária composta. Isso impede que a mesma associação entre uma tarefa e uma tag seja cadastrada mais de uma vez.
+
+3- Se tarefa_id tivesse uma restrição UNIQUE individual, uma mesma tarefa só poderia aparecer uma vez na tabela. Com isso, uma tarefa não poderia receber várias tags, o que impediria o relacionamento N:N. 
