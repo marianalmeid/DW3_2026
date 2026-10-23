@@ -1,0 +1,1 @@
+Logo após executar o generate, a coluna prioridade está descrita no arquivo JavaScript (schema.js) e no arquivo SQL gerado pela migration. Porém, ela ainda não foi acrescentada à tabela real do PostgreSQL. Isso só acontece quando a migration é aplicada com o migrate.

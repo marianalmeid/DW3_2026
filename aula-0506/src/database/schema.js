@@ -6,6 +6,7 @@ export const tarefas = pgTable('tarefas', {
   descricao: text('descricao').notNull(),
   concluido: boolean('concluido').notNull().default(false),
   projetoId: integer('projeto_id').references(() => projetos.id),
+  prioridade: text('prioridade').default('media'),
 })
 
 export const projetos = pgTable('projetos', {
